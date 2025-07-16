@@ -1,6 +1,12 @@
 import million from 'million/compiler';
 
 const nextConfig = {
+  sassOptions: {
+    prependData: `
+      @use '@/styles/variables' as *;
+      @use '@/styles/mixins' as *;
+    `,
+  },
   // Configuración de imágenes
   images: {
     remotePatterns: [

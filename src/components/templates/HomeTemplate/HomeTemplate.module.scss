@@ -1,0 +1,11 @@
+.hometemplate {
+  min-height: 100vh;
+  background-color: $ml-background;
+
+  &__main {
+    position: relative;
+    padding: 0;
+
+    @include container;
+  }
+}

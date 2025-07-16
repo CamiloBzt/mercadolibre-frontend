@@ -1,0 +1,83 @@
+.welcomemessage {
+  position: absolute;
+  top: $space-4;
+  right: 8px;
+  z-index: 1000;
+  max-width: 350px;
+
+  &__content {
+    background-color: $ml-blue;
+    color: $ml-white;
+    padding: $space-4;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    position: relative;
+  }
+
+  &__title {
+    font-family: $font-family;
+    font-size: $font-lg;
+    font-weight: $font-semibold;
+    margin: 0 0 $space-2 0;
+  }
+
+  &__text {
+    font-family: $font-family;
+    font-size: $font-sm;
+    font-weight: $font-normal;
+    line-height: 1.4;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  &__close {
+    position: absolute;
+    top: $space-2;
+    right: $space-2;
+    background: transparent;
+    border: none;
+    color: $ml-white;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: $font-base;
+    line-height: 1;
+    padding: 0;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $ml-white;
+      outline-offset: 2px;
+    }
+  }
+
+  &__arrow {
+    position: absolute;
+    top: -8px;
+    right: 50px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid $ml-blue;
+  }
+
+  @include mobile {
+    position: fixed;
+    top: 8rem;
+    right: $space-4;
+    left: $space-4;
+    max-width: none;
+
+    &__arrow {
+      right: 30px;
+    }
+  }
+}

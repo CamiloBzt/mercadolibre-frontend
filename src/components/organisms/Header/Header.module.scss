@@ -1,0 +1,19 @@
+.header {
+  width: 100%;
+  background-color: $ml-yellow;
+  padding: 0.5rem 0;
+
+  &__container {
+    @include container;
+    @include flex-center;
+    gap: $space-8;
+    padding-top: $space-2;
+    padding-bottom: $space-2;
+    max-width: 1200px;
+
+    @include mobile {
+      flex-direction: column;
+      gap: $space-4;
+    }
+  }
+}

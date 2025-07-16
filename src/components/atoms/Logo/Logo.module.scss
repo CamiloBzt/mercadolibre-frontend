@@ -1,0 +1,13 @@
+.logo {
+  flex-shrink: 0;
+
+  &__image {
+    display: block;
+    height: auto;
+
+    @media (max-width: 480px) {
+      width: 120px !important;
+      height: auto !important;
+    }
+  }
+}
