@@ -1,0 +1,113 @@
+@use 'variables';
+@use 'mixins';
+
+// Reset básico
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+body {
+  font-family: variables.$font-primary;
+  font-size: variables.$font-size-base;
+  color: variables.$ml-black;
+  background-color: variables.$ml-white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Enlaces
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color variables.$transition-base;
+
+  &:hover {
+    color: variables.$ml-blue;
+  }
+}
+
+// Botones
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+// Inputs
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+// Imágenes
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// Utilidades
+.container {
+  @include mixins.container;
+}
+
+.visually-hidden {
+  @include mixins.visually-hidden;
+}
+
+.truncate {
+  @include mixins.truncate;
+}
+
+// Clases de utilidad para flexbox
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  @include mixins.flex-center;
+}
+
+.flex-between {
+  @include mixins.flex-between;
+}
+
+.flex-column {
+  @include mixins.flex-column;
+}
+
+// Clases de utilidad para spacing
+.mt-sm {
+  margin-top: variables.$spacing-sm;
+}
+.mt-md {
+  margin-top: variables.$spacing-md;
+}
+.mt-lg {
+  margin-top: variables.$spacing-lg;
+}
+.mb-sm {
+  margin-bottom: variables.$spacing-sm;
+}
+.mb-md {
+  margin-bottom: variables.$spacing-md;
+}
+.mb-lg {
+  margin-bottom: variables.$spacing-lg;
+}
+.p-sm {
+  padding: variables.$spacing-sm;
+}
+.p-md {
+  padding: variables.$spacing-md;
+}
+.p-lg {
+  padding: variables.$spacing-lg;
+}
