@@ -2,7 +2,7 @@
 
 import WelcomeMessage from '@/components/molecules/WelcomeMessage/WelcomeMessage';
 import Header from '@/components/organisms/Header/Header';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles from './HomeTemplate.module.scss';
 import { HomeTemplateProps } from './HomeTemplate.types';
 
