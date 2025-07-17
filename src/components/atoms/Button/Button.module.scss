@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 .button {
   display: inline-flex;
   align-items: center;
@@ -22,11 +24,11 @@
     font-size: $font-base;
 
     &:hover:not(:disabled) {
-      background-color: darken($ml-blue, 10%);
+      background-color: color.adjust($ml-blue, $lightness: -10%);
     }
 
     &:active:not(:disabled) {
-      background-color: darken($ml-blue, 15%);
+      background-color: color.adjust($ml-blue, $lightness: -15%);
     }
   }
 
