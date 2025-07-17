@@ -1,9 +1,7 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { useSearchProductsQuery } from '../store/api/endpoints/products';
+import { useGetAllProductsQuery } from '../store/api/endpoints/products';
 import {
-  selectCachedResults,
   selectSearchState,
-  setCachedResults,
   setCurrentPage,
   setQuery,
   setTotalItems,
@@ -14,81 +12,56 @@ import { useAppDispatch, useAppSelector } from './redux';
 export const useSearch = () => {
   const dispatch = useAppDispatch();
   const searchState = useAppSelector(selectSearchState);
-  const cachedResults = useAppSelector(selectCachedResults);
   const { query, currentPage, itemsPerPage } = searchState;
 
-  const offset = useMemo(
-    () => (currentPage - 1) * itemsPerPage,
-    [currentPage, itemsPerPage]
-  );
-
-  const cacheKey = useMemo(
-    () => `${query}_${offset}_${itemsPerPage}`,
-    [query, offset, itemsPerPage]
-  );
-
-  const shouldFetch = query.trim().length > 0;
-
   const {
-    data: apiData,
+    data: allProducts = [],
     isLoading,
     error,
-    isFetching,
-  } = useSearchProductsQuery(
-    { q: query, offset, limit: itemsPerPage },
-    {
-      skip: !shouldFetch,
-      refetchOnMountOrArgChange: false,
-      refetchOnFocus: false,
-      refetchOnReconnect: false,
-    }
-  );
+  } = useGetAllProductsQuery(undefined);
 
-  const cachedData = cachedResults[cacheKey];
-  const isCacheValid = cachedData && Date.now() - cachedData.timestamp < 300000; // 5 minutos
-
-  const finalData = useMemo(() => {
-    if (isCacheValid) {
-      return {
-        categories: cachedData.categories,
-        items: cachedData.products,
-        pagination: {
-          total: cachedData.total,
-          offset,
-          limit: itemsPerPage,
-          has_next_page: offset + itemsPerPage < cachedData.total,
-          has_previous_page: offset > 0,
-        },
-      };
+  const filteredProducts = useMemo(() => {
+    if (!query.trim()) {
+      return [];
     }
-    return apiData;
-  }, [isCacheValid, cachedData, apiData, offset, itemsPerPage]);
+
+    return allProducts.filter(
+      (product) =>
+        product.title.toLowerCase().includes(query.toLowerCase()) ||
+        product.condition.toLowerCase().includes(query.toLowerCase()) ||
+        (product.seller &&
+          product.seller.toLowerCase().includes(query.toLowerCase()))
+    );
+  }, [allProducts, query]);
+
+  const totalItems = filteredProducts.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const products = useMemo(() => {
+    return filteredProducts.slice(startIndex, endIndex);
+  }, [filteredProducts, startIndex, endIndex]);
+
+  const categories = useMemo(() => {
+    return Array.from(new Set(filteredProducts.map((p) => p.category)));
+  }, [filteredProducts]);
 
   useEffect(() => {
-    if (apiData && !isCacheValid) {
-      dispatch(
-        setCachedResults({
-          key: cacheKey,
-          products: apiData.items,
-          categories: apiData.categories,
-          total: apiData.pagination.total,
-        })
-      );
-    }
-  }, [apiData, isCacheValid, cacheKey, dispatch]);
+    dispatch(setTotalItems(totalItems));
+    dispatch(setTotalPages(totalPages));
+  }, [totalItems, totalPages, dispatch]);
 
   useEffect(() => {
-    if (finalData) {
-      dispatch(setTotalItems(finalData.pagination.total));
-      dispatch(
-        setTotalPages(Math.ceil(finalData.pagination.total / itemsPerPage))
-      );
+    if (currentPage > totalPages && totalPages > 0) {
+      dispatch(setCurrentPage(1));
     }
-  }, [finalData, itemsPerPage, dispatch]);
+  }, [currentPage, totalPages, dispatch]);
 
   const handleSearch = useCallback(
     (newQuery: string) => {
       dispatch(setQuery(newQuery));
+      dispatch(setCurrentPage(1));
     },
     [dispatch]
   );
@@ -105,68 +78,29 @@ export const useSearch = () => {
     dispatch(setCurrentPage(1));
   }, [dispatch]);
 
-  console.log(
-    'Search Hook:',
-    JSON.stringify({
-      // Datos
-      products: finalData?.items || [],
-      categories: finalData?.categories || [],
-      pagination: finalData?.pagination || {
-        total: 0,
-        offset: 0,
-        limit: itemsPerPage,
-        has_next_page: false,
-        has_previous_page: false,
-      },
-
-      // Estado
-      query,
-      currentPage,
-      totalPages: searchState.totalPages,
-      totalItems: searchState.totalItems,
-      itemsPerPage,
-      isLoading: (isLoading || isFetching) && !isCacheValid,
-      error,
-
-      // Funciones
-      handleSearch,
-      handlePageChange,
-      resetSearch,
-
-      // Cache info
-      isCacheValid,
-      hasData: (finalData?.items.length || 0) > 0,
-    })
-  );
-
   return {
-    // Datos
-    products: finalData?.items || [],
-    categories: finalData?.categories || [],
-    pagination: finalData?.pagination || {
-      total: 0,
-      offset: 0,
+    products,
+    categories,
+    pagination: {
+      total: totalItems,
+      offset: startIndex,
       limit: itemsPerPage,
-      has_next_page: false,
-      has_previous_page: false,
+      has_next_page: endIndex < totalItems,
+      has_previous_page: startIndex > 0,
     },
 
-    // Estado
     query,
     currentPage,
-    totalPages: searchState.totalPages,
-    totalItems: searchState.totalItems,
+    totalPages,
+    totalItems,
     itemsPerPage,
-    isLoading: (isLoading || isFetching) && !isCacheValid,
+    isLoading,
     error,
 
-    // Funciones
     handleSearch,
     handlePageChange,
     resetSearch,
 
-    // Cache info
-    isCacheValid,
-    hasData: (finalData?.items.length || 0) > 0,
+    hasData: products.length > 0,
   };
 };

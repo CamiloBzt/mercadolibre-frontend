@@ -1,27 +1,25 @@
 import { baseApi } from '../baseApi';
 import {
+  transformProduct,
   transformProductDetail,
-  transformProductsWithPagination,
 } from '../transforms/product.transforms';
-import { SearchParams } from '../types/api.types';
 import {
   FakeStoreProduct,
   ProductDetailResponse,
-  SearchProductsResponse,
+  ProductItem,
 } from '../types/product.types';
 
 export const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    searchProducts: builder.query<SearchProductsResponse, SearchParams>({
+    getAllProducts: builder.query<ProductItem[], void>({
       query: () => ({
         url: 'products',
         params: {
           limit: 50,
         },
       }),
-      transformResponse: (response: FakeStoreProduct[], meta, arg) => {
-        const { q, offset = 0, limit = 10 } = arg;
-        return transformProductsWithPagination(response, q, offset, limit);
+      transformResponse: (response: FakeStoreProduct[]): ProductItem[] => {
+        return response.map(transformProduct);
       },
       providesTags: ['Product'],
     }),
@@ -39,4 +37,4 @@ export const productsApi = baseApi.injectEndpoints({
   overrideExisting: true,
 });
 
-export const { useSearchProductsQuery, useGetProductByIdQuery } = productsApi;
+export const { useGetAllProductsQuery, useGetProductByIdQuery } = productsApi;

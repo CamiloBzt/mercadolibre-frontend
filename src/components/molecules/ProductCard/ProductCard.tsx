@@ -42,7 +42,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
           alt={product.title}
           width={259}
           height={250}
-          style={{ objectFit: 'cover' }}
+          style={{ objectFit: 'contain' }}
         />
       </div>
 

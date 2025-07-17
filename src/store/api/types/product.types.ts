@@ -31,6 +31,7 @@ export interface ProductItem {
   free_shipping: boolean;
   installments?: string;
   seller?: string;
+  category: string;
 }
 
 export interface SearchProductsResponse {

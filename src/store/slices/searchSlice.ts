@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ProductItem } from '../api/types/product.types';
 
 interface SearchState {
   query: string;
@@ -7,15 +6,6 @@ interface SearchState {
   totalPages: number;
   totalItems: number;
   itemsPerPage: number;
-  cachedResults: {
-    [key: string]: {
-      products: ProductItem[];
-      categories: string[];
-      total: number;
-      timestamp: number;
-    };
-  };
-  isLoading: boolean;
 }
 
 const initialState: SearchState = {
@@ -24,8 +14,6 @@ const initialState: SearchState = {
   totalPages: 0,
   totalItems: 0,
   itemsPerPage: 10,
-  cachedResults: {},
-  isLoading: false,
 };
 
 const searchSlice = createSlice({
@@ -34,7 +22,6 @@ const searchSlice = createSlice({
   reducers: {
     setQuery: (state, action: PayloadAction<string>) => {
       state.query = action.payload;
-      state.currentPage = 1;
     },
     setCurrentPage: (state, action: PayloadAction<number>) => {
       state.currentPage = action.payload;
@@ -47,36 +34,14 @@ const searchSlice = createSlice({
     },
     setItemsPerPage: (state, action: PayloadAction<number>) => {
       state.itemsPerPage = action.payload;
-    },
-    setCachedResults: (
-      state,
-      action: PayloadAction<{
-        key: string;
-        products: ProductItem[];
-        categories: string[];
-        total: number;
-      }>
-    ) => {
-      const { key, products, categories, total } = action.payload;
-      state.cachedResults[key] = {
-        products,
-        categories,
-        total,
-        timestamp: Date.now(),
-      };
-    },
-    clearCache: (state) => {
-      state.cachedResults = {};
-    },
-    setLoading: (state, action: PayloadAction<boolean>) => {
-      state.isLoading = action.payload;
+
+      state.totalPages = Math.ceil(state.totalItems / action.payload);
     },
     resetSearch: (state) => {
       state.query = '';
       state.currentPage = 1;
       state.totalPages = 0;
       state.totalItems = 0;
-      state.isLoading = false;
     },
   },
 });
@@ -87,9 +52,6 @@ export const {
   setTotalPages,
   setTotalItems,
   setItemsPerPage,
-  setCachedResults,
-  clearCache,
-  setLoading,
   resetSearch,
 } = searchSlice.actions;
 
@@ -103,7 +65,7 @@ export const selectCurrentPage = (state: { search: SearchState }) =>
   state.search.currentPage;
 export const selectTotalPages = (state: { search: SearchState }) =>
   state.search.totalPages;
-export const selectCachedResults = (state: { search: SearchState }) =>
-  state.search.cachedResults;
-export const selectIsLoading = (state: { search: SearchState }) =>
-  state.search.isLoading;
+export const selectTotalItems = (state: { search: SearchState }) =>
+  state.search.totalItems;
+export const selectItemsPerPage = (state: { search: SearchState }) =>
+  state.search.itemsPerPage;

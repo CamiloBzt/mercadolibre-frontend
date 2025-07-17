@@ -52,7 +52,7 @@ function ItemsPageContent() {
       handleSearch(urlQuery);
     }
 
-    if (urlPage !== currentPage) {
+    if (urlPage !== currentPage && urlPage > 0) {
       handlePageChange(urlPage);
     }
   }, [urlQuery, pageParam, query, currentPage, handleSearch, handlePageChange]);

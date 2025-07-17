@@ -19,6 +19,7 @@ export const transformProduct = (product: FakeStoreProduct): ProductItem => ({
   free_shipping: product.price > 10,
   installments: `Mismo precio en 6 cuotas de $ ${Math.round((product.price * 4000) / 6)}`,
   seller: 'FAKESTORE SELLER',
+  category: product.category,
 });
 
 export const transformProductDetail = (
@@ -54,37 +55,3 @@ export const transformProductDetail = (
   category_path_from_root: [product.category],
   seller: 'FAKESTORE SELLER',
 });
-
-export const transformProductsWithPagination = (
-  products: FakeStoreProduct[],
-  query: string,
-  offset: number = 0,
-  limit: number = 10
-) => {
-  const filteredProducts = products.filter(
-    (product) =>
-      product.title.toLowerCase().includes(query.toLowerCase()) ||
-      product.description.toLowerCase().includes(query.toLowerCase()) ||
-      product.category.toLowerCase().includes(query.toLowerCase())
-  );
-
-  const startIndex = offset;
-  const endIndex = startIndex + limit;
-  const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
-
-  const categories = Array.from(
-    new Set(filteredProducts.map((p) => p.category))
-  );
-
-  return {
-    categories,
-    items: paginatedProducts.map(transformProduct),
-    pagination: {
-      total: filteredProducts.length,
-      offset,
-      limit,
-      has_next_page: endIndex < filteredProducts.length,
-      has_previous_page: offset > 0,
-    },
-  };
-};

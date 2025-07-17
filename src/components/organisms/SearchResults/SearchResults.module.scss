@@ -11,10 +11,6 @@
     gap: $space-4;
   }
 
-  &__pagination {
-    margin-top: $space-6;
-  }
-
   @include mobile {
     padding: $space-3 0;
 
