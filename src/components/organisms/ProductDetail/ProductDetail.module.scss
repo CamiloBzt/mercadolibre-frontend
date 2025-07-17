@@ -1,0 +1,212 @@
+.productdetail {
+  background-color: $ml-white;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  padding: $space-6;
+
+  &__content {
+    display: flex;
+    gap: 3rem;
+  }
+
+  &__gallery {
+    width: 52%;
+  }
+
+  &__info {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+    padding-top: $space-4;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    font-family: $font-family;
+    font-size: $font-sm;
+    color: $ml-gray;
+  }
+
+  &__condition {
+    text-transform: capitalize;
+  }
+
+  &__sold {
+    &::before {
+      content: '|';
+      margin-right: $space-2;
+    }
+  }
+
+  &__title {
+    font-family: $font-family;
+    font-size: $font-lg;
+    font-weight: $font-semibold;
+    color: $ml-black;
+    @include truncate;
+  }
+
+  &__seller {
+    font-family: $font-family;
+    font-size: $font-base;
+    font-weight: $font-normal;
+    color: $ml-gray;
+  }
+
+  &__price_section {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+  }
+
+  &__price_regular {
+    font-family: $font-family;
+    font-size: $font-base;
+    color: $ml-gray;
+    text-decoration: line-through;
+  }
+
+  &__price_wrapper {
+    display: flex;
+    align-items: baseline;
+    gap: $space-3;
+  }
+
+  &__price {
+    font-family: $font-family;
+    font-size: 36px;
+    font-weight: $font-normal;
+    color: $ml-black;
+    line-height: 1;
+  }
+
+  &__discount {
+    font-family: $font-family;
+    font-size: $font-lg;
+    font-weight: $font-normal;
+    color: $ml-green;
+  }
+
+  &__installments {
+    font-family: $font-family;
+    font-size: $font-lg;
+    font-weight: $font-light;
+    color: $ml-green;
+  }
+
+  &__shipping {
+    font-family: $font-family;
+    font-size: $font-lg;
+    font-weight: $font-semibold;
+    color: $ml-green;
+  }
+
+  &__attribute {
+    display: flex;
+    gap: $space-1;
+    font-family: $font-family;
+    font-size: $font-base;
+    color: $ml-black;
+  }
+
+  &__attribute_name {
+    color: $ml-gray;
+    font-weight: $font-light;
+  }
+
+  &__attribute_value {
+    font-weight: $font-normal;
+  }
+
+  &__description {
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+    padding-top: $space-8;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    &_header {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: $space-4;
+      &_title {
+        font-family: $font-family;
+        font-size: $font-xl;
+        font-weight: $font-normal;
+        color: $ml-black;
+      }
+      &_separator {
+        height: 2px;
+        width: 100%;
+        background-color: $ml-background;
+      }
+    }
+
+    &_content {
+      font-family: $font-family;
+      font-size: $font-lg;
+      font-weight: $font-light;
+      color: $ml-gray;
+      line-height: 1.6;
+
+      p {
+        margin: 0 0 $space-4 0;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  @include mobile {
+    padding: $space-4;
+
+    &__content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: $space-4;
+    }
+
+    &__gallery {
+      width: 100%;
+    }
+
+    &__info {
+      width: 100%;
+    }
+
+    &__title {
+      font-size: $font-lg;
+    }
+
+    &__price {
+      font-size: 28px;
+    }
+
+    &__discount {
+      font-size: $font-base;
+    }
+
+    &__installments,
+    &__shipping {
+      font-size: $font-base;
+    }
+
+    &__description {
+      margin-top: $space-6;
+      padding-top: $space-6;
+
+      &_title {
+        font-size: $font-lg;
+        margin-bottom: $space-4;
+      }
+
+      &_content {
+        font-size: $font-base;
+      }
+    }
+  }
+}

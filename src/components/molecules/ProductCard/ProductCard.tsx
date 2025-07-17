@@ -1,19 +1,11 @@
-import React from 'react';
+import { formatPrice } from '@/utils/formatPrice';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ProductCardProps } from './ProductCard.types';
+import React from 'react';
 import styles from './ProductCard.module.scss';
+import { ProductCardProps } from './ProductCard.types';
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
-  const formatPrice = (amount: number, decimals: number = 0) => {
-    return new Intl.NumberFormat('es-CO', {
-      style: 'currency',
-      currency: 'COP',
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals,
-    }).format(amount);
-  };
-
   const handleClick = (e: React.MouseEvent) => {
     if (onClick) {
       e.preventDefault();
@@ -65,7 +57,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
             )}
           </div>
           <div className={styles.productcard__price}>
-            <div className={styles.productcard__price_section}>
+            <div
+              className={styles.productcard__price_section}
+              style={product.price.regular_amount ? { paddingTop: '1rem' } : {}}
+            >
               {product.price.regular_amount && (
                 <span className={styles.productcard__price__regular}>
                   {formatPrice(product.price.regular_amount)}
