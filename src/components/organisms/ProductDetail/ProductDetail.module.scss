@@ -165,8 +165,7 @@
     padding: $space-4;
 
     &__content {
-      display: grid;
-      grid-template-columns: 1fr;
+      flex-direction: column;
       gap: $space-4;
     }
 
@@ -176,14 +175,26 @@
 
     &__info {
       width: 100%;
+      padding-top: 0;
+    }
+
+    &__header {
+      font-size: $font-xs;
     }
 
     &__title {
-      font-size: $font-lg;
+      font-size: $font-base;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: unset;
+    }
+
+    &__seller {
+      font-size: $font-sm;
     }
 
     &__price {
-      font-size: 28px;
+      font-size: 24px;
     }
 
     &__discount {
@@ -192,20 +203,25 @@
 
     &__installments,
     &__shipping {
-      font-size: $font-base;
+      font-size: $font-sm;
+    }
+
+    &__attribute {
+      font-size: $font-sm;
     }
 
     &__description {
       margin-top: $space-6;
       padding-top: $space-6;
 
-      &_title {
-        font-size: $font-lg;
-        margin-bottom: $space-4;
+      &_header {
+        &_title {
+          font-size: $font-base;
+        }
       }
 
       &_content {
-        font-size: $font-base;
+        font-size: $font-sm;
       }
     }
   }
