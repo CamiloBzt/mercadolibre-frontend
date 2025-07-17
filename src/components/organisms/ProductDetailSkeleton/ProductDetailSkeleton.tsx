@@ -1,10 +1,7 @@
-import React from 'react';
 import Skeleton from '@/components/atoms/Skeleton/Skeleton';
+import React from 'react';
 import styles from './ProductDetailSkeleton.module.scss';
-
-export interface ProductDetailSkeletonProps {
-  className?: string;
-}
+import { ProductDetailSkeletonProps } from './ProductDetailSkeleton.types';
 
 const ProductDetailSkeleton: React.FC<ProductDetailSkeletonProps> = ({
   className = '',

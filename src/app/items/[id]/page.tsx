@@ -1,10 +1,10 @@
 'use client';
 
 import ProductDetail from '@/components/organisms/ProductDetail/ProductDetail';
-import { ProductDetailData } from '@/components/organisms/ProductDetail/ProductDetail.types';
 import ProductDetailSkeleton from '@/components/organisms/ProductDetailSkeleton/ProductDetailSkeleton';
 import DetailTemplate from '@/components/templates/DetailTemplate/DetailTemplate';
 import { getProductById } from '@/lib/mockProductDetail';
+import { ProductDetailItem } from '@/store/api/types/product.types';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import styles from './page.module.scss';
@@ -17,7 +17,7 @@ interface ItemDetailPageProps {
 
 export default function ItemDetailPage({ params }: ItemDetailPageProps) {
   const router = useRouter();
-  const [product, setProduct] = useState<ProductDetailData | null>(null);
+  const [product, setProduct] = useState<ProductDetailItem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [productId, setProductId] = useState<string>('');
 

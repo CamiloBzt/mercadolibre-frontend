@@ -1,6 +1,6 @@
-import { ProductDetailData } from '@/components/organisms/ProductDetail/ProductDetail.types';
+import { ProductDetailItem } from '@/store/api/types/product.types';
 
-export const mockProductDetail: ProductDetailData = {
+export const mockProductDetail: ProductDetailItem = {
   id: 'MLA1362836001',
   title: 'Apple iPhone 14 (128 GB) - Blanco estelar',
   price: {
@@ -63,7 +63,7 @@ Avisos Legales:
   seller: 'SKY VISION',
 };
 
-export const getProductById = (id: string): ProductDetailData => {
+export const getProductById = (id: string): ProductDetailItem => {
   return {
     ...mockProductDetail,
     id,
