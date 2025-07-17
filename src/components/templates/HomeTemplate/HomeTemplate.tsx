@@ -2,14 +2,21 @@
 
 import WelcomeMessage from '@/components/molecules/WelcomeMessage/WelcomeMessage';
 import Header from '@/components/organisms/Header/Header';
-import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import React from 'react';
 import styles from './HomeTemplate.module.scss';
 import { HomeTemplateProps } from './HomeTemplate.types';
 
 const HomeTemplate: React.FC<HomeTemplateProps> = ({ children }) => {
+  const router = useRouter();
+
   const handleSearch = (query: string) => {
-    // TODO: Implementar lógica de búsqueda
-    console.log('Búsqueda:', query);
+    if (query.trim()) {
+      const params = new URLSearchParams();
+      params.set('search', query.trim());
+      params.set('page', '1');
+      router.push(`/items?${params.toString()}`);
+    }
   };
 
   return (

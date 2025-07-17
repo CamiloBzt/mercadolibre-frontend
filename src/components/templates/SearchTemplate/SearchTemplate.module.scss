@@ -1,0 +1,11 @@
+.searchtemplate {
+  min-height: 100vh;
+  background-color: $ml-background;
+  display: flex;
+  flex-direction: column;
+
+  &__main {
+    flex: 1;
+    padding: 0;
+  }
+}

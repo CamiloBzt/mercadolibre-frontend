@@ -1,0 +1,16 @@
+.emptySearch {
+  padding: 2rem;
+  text-align: center;
+  font-family: $font-family;
+  color: $ml-gray;
+}
+
+.loading {
+  min-height: 100vh;
+  background-color: $ml-background;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: $font-family;
+  color: $ml-gray;
+}

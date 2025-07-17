@@ -1,0 +1,101 @@
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ProductCardProps } from './ProductCard.types';
+import styles from './ProductCard.module.scss';
+
+const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
+  const formatPrice = (amount: number, decimals: number = 0) => {
+    return new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    }).format(amount);
+  };
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (onClick) {
+      e.preventDefault();
+      onClick(product.id);
+    }
+  };
+
+  const calculateDiscount = () => {
+    if (
+      product.price.regular_amount &&
+      product.price.regular_amount > product.price.amount
+    ) {
+      const discount = Math.round(
+        ((product.price.regular_amount - product.price.amount) /
+          product.price.regular_amount) *
+          100
+      );
+      return discount;
+    }
+    return null;
+  };
+
+  const discount = calculateDiscount();
+
+  return (
+    <Link
+      href={`/items/${product.id}`}
+      className={styles.productcard}
+      onClick={handleClick}
+    >
+      <div className={styles.productcard__image}>
+        <Image
+          src={product.picture}
+          alt={product.title}
+          width={259}
+          height={250}
+          style={{ objectFit: 'cover' }}
+        />
+      </div>
+
+      <div className={styles.productcard__content}>
+        <div className={styles.productcard__detail_section}>
+          <div className={styles.productcard__title_section}>
+            <h2 className={styles.productcard__title}>{product.title}</h2>{' '}
+            {product.seller && (
+              <span className={styles.productcard__seller}>
+                Por {product.seller}
+              </span>
+            )}
+          </div>
+          <div className={styles.productcard__price}>
+            <div className={styles.productcard__price_section}>
+              {product.price.regular_amount && (
+                <span className={styles.productcard__price__regular}>
+                  {formatPrice(product.price.regular_amount)}
+                </span>
+              )}
+              <h3 className={styles.productcard__price}>
+                {formatPrice(product.price.amount, product.price.decimals)}
+              </h3>
+              {discount && (
+                <span className={styles.productcard__price__discount}>
+                  {discount}% OFF
+                </span>
+              )}
+            </div>
+            {product.installments && (
+              <p className={styles.productcard__installments}>
+                {product.installments}
+              </p>
+            )}
+          </div>
+          {product.free_shipping && (
+            <p className={styles.productcard__shipping}>Envío gratis</p>
+          )}
+          <span className={styles.productcard__condition}>
+            {product.condition}
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+};
+
+export default ProductCard;
