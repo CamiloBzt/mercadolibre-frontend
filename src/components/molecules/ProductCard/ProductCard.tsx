@@ -42,14 +42,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
           alt={product.title}
           width={259}
           height={250}
-          style={{ objectFit: 'cover' }}
+          style={{ objectFit: 'contain' }}
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src =
+              'https://http2.mlstatic.com/D_NQ_NP_2X_899441-MLA46114829758_052021-F.webp';
+          }}
         />
       </div>
 
       <div className={styles.productcard__content}>
         <div className={styles.productcard__detail_section}>
           <div className={styles.productcard__title_section}>
-            <h2 className={styles.productcard__title}>{product.title}</h2>{' '}
+            <h2 className={styles.productcard__title}>{product.title}</h2>
             {product.seller && (
               <span className={styles.productcard__seller}>
                 Por {product.seller}

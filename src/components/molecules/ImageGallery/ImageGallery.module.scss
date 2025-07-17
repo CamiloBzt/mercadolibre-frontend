@@ -25,10 +25,15 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform $transition;
     }
 
     &:hover {
       border-color: rgba($ml-blue, 0.3);
+
+      img {
+        transform: scale(1.05);
+      }
     }
 
     &:focus-visible {
@@ -49,10 +54,64 @@
     min-height: 566px;
     background-color: $ml-white;
     border-radius: 4px;
+    overflow: hidden;
 
     &_image {
       max-width: 100%;
       height: auto;
+      transition: all $transition;
+
+      &[src*='rotate-15'] {
+        transform: rotate(15deg);
+      }
+
+      &[src*='rotate-90'] {
+        transform: rotate(90deg);
+      }
+
+      &[src*='scale-110'] {
+        transform: scale(1.1);
+      }
+
+      &[src*='flip-horizontal'] {
+        transform: scaleX(-1);
+      }
+
+      &[src*='brightness-110'] {
+        filter: brightness(1.1);
+      }
+
+      &[src*='contrast-120'] {
+        filter: contrast(1.2);
+      }
+
+      &[src*='sepia'] {
+        filter: sepia(0.3);
+      }
+
+      &[src*='grayscale'] {
+        filter: grayscale(0.5);
+      }
+
+      &:hover {
+        transform: scale(1.02);
+
+        &[src*='rotate-15'] {
+          transform: rotate(15deg) scale(1.02);
+        }
+
+        &[src*='rotate-90'] {
+          transform: rotate(90deg) scale(1.02);
+        }
+
+        &[src*='scale-110'] {
+          transform: scale(1.12);
+        }
+
+        &[src*='flip-horizontal'] {
+          transform: scaleX(-1) scale(1.02);
+        }
+      }
     }
   }
 
@@ -88,6 +147,16 @@
 
     &__main {
       min-height: 300px;
+
+      &_image {
+        &[src*='rotate-15'] {
+          transform: rotate(5deg);
+        }
+
+        &[src*='rotate-90'] {
+          transform: rotate(45deg);
+        }
+      }
     }
   }
 }

@@ -7,6 +7,7 @@ import { DetailTemplateProps } from './DetailTemplate.types';
 const DetailTemplate: React.FC<DetailTemplateProps> = ({
   children,
   categories = [],
+  publicationNumber,
   onSearch,
 }) => {
   return (
@@ -16,12 +17,14 @@ const DetailTemplate: React.FC<DetailTemplateProps> = ({
         {categories.length ? (
           <div className={styles.detailtemplate__top}>
             <Breadcrumb categories={categories} />
-            <p className={styles.detailtemplate__top_publication}>
-              Publicación:{' '}
-              <span className={styles.detailtemplate__top_publication_number}>
-                #1117020690
-              </span>
-            </p>
+            {publicationNumber && (
+              <p className={styles.detailtemplate__top_publication}>
+                Publicación:{' '}
+                <span className={styles.detailtemplate__top_publication_number}>
+                  #{publicationNumber}
+                </span>
+              </p>
+            )}
           </div>
         ) : null}
         <main className={styles.detailtemplate__main}>{children}</main>

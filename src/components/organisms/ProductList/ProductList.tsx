@@ -5,20 +5,9 @@ import { ProductListProps } from './ProductList.types';
 
 const ProductList: React.FC<ProductListProps> = ({
   products,
-  isLoading = false,
   onProductClick,
   className = '',
 }) => {
-  if (isLoading) {
-    return (
-      <div className={styles.productlist__loading}>
-        <p className={styles.productlist__loading_text}>
-          Cargando productos...
-        </p>
-      </div>
-    );
-  }
-
   if (!products || products.length === 0) {
     return (
       <div className={styles.productlist__empty}>

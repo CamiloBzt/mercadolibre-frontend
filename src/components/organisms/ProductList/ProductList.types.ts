@@ -1,8 +1,7 @@
-import { Product } from '@/components/molecules/ProductCard/ProductCard.types';
+import { ProductItem } from '@/store/api/types/product.types';
 
 export interface ProductListProps {
-  products: Product[];
-  isLoading?: boolean;
+  products: ProductItem[];
   onProductClick?: (productId: string) => void;
   className?: string;
 }
