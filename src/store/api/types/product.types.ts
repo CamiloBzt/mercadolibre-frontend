@@ -68,6 +68,7 @@ export interface ProductDetailItem {
   }>;
   category_path_from_root: string[];
   seller?: string;
+  publication_number?: number;
 }
 
 export interface ProductDetailResponse {

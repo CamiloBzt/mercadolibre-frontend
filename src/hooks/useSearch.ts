@@ -14,11 +14,7 @@ export const useSearch = () => {
   const searchState = useAppSelector(selectSearchState);
   const { query, currentPage, itemsPerPage } = searchState;
 
-  const {
-    data: allProducts = [],
-    isLoading,
-    error,
-  } = useGetAllProductsQuery(undefined);
+  const { data: allProducts = [], isLoading, error } = useGetAllProductsQuery();
 
   const filteredProducts = useMemo(() => {
     if (!query.trim()) {
