@@ -128,17 +128,6 @@ const nextConfig = {
 
   // Optimización de output
   output: 'standalone',
-
-  // Configuración de redirects para SEO
-  async redirects() {
-    return [
-      {
-        source: '/items/:path*',
-        destination: '/productos/:path*',
-        permanent: true,
-      },
-    ];
-  },
 };
 
 // Exportar configuración con Million.js

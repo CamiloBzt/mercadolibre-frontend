@@ -10,11 +10,7 @@ $ml-black: rgba(0, 0, 0, 0.9);
 $ml-gray: rgba(0, 0, 0, 0.55);
 
 // Tipografía
-$font-family:
-  'Proxima Nova',
-  -apple-system,
-  BlinkMacSystemFont,
-  sans-serif;
+$font-family: 'Proxima Nova', sans-serif;
 
 // Tamaños de fuente
 $font-xs: 0.75rem;
@@ -46,4 +42,4 @@ $desktop: 64em;
 $container-width: 75rem;
 
 // Transiciones
-$transition: 0.2s ease;
+$transition: 0.3s ease-in-out;

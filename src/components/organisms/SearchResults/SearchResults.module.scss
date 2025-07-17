@@ -1,0 +1,29 @@
+.searchresults {
+  padding: $space-8 0;
+
+  &__container {
+    @include container;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+  }
+
+  &__pagination {
+    margin-top: $space-6;
+  }
+
+  @include mobile {
+    padding: $space-3 0;
+
+    &__content {
+      gap: $space-3;
+    }
+
+    &__pagination {
+      margin-top: $space-4;
+    }
+  }
+}

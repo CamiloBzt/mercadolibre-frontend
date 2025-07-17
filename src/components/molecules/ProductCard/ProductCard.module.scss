@@ -1,0 +1,132 @@
+.productcard {
+  display: flex;
+  gap: $space-6;
+  padding: $space-4;
+  padding-bottom: $space-6;
+  background-color: $ml-white;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: box-shadow $transition;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  &__image {
+    flex-shrink: 0;
+    width: 259px;
+    height: 250px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: $space-8;
+  }
+
+  &__detail_section {
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+  }
+
+  &__title_section {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+  }
+
+  &__price {
+    font-family: $font-family;
+    font-size: $font-xl;
+    font-weight: $font-normal;
+    color: $ml-black;
+
+    &_section {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: $space-2;
+    }
+
+    &__regular {
+      position: absolute;
+      top: 0;
+      left: 0;
+      font-size: $font-xs;
+      color: $ml-gray;
+      text-decoration: line-through;
+    }
+
+    &__discount {
+      font-size: $font-sm;
+      color: $ml-green;
+      font-weight: $font-normal;
+    }
+  }
+
+  &__installments {
+    font-family: $font-family;
+    font-size: $font-sm;
+    font-weight: $font-normal;
+    color: $ml-green;
+  }
+
+  &__shipping {
+    font-family: $font-family;
+    font-size: $font-sm;
+    color: $ml-green;
+    font-weight: $font-semibold;
+  }
+
+  &__title {
+    font-family: $font-family;
+    font-size: $font-lg;
+    font-weight: $font-light;
+    color: $ml-black;
+    @include truncate;
+  }
+
+  &__seller {
+    font-family: $font-family;
+    font-size: $font-sm;
+    font-weight: $font-normal;
+    color: $ml-gray;
+  }
+
+  &__condition {
+    font-family: $font-family;
+    font-size: $font-sm;
+    font-weight: $font-normal;
+    color: $ml-gray;
+    text-transform: capitalize;
+  }
+
+  @include mobile {
+    flex-direction: column;
+
+    &__image {
+      width: 100%;
+      height: 200px;
+      margin-right: 0;
+      margin-bottom: $space-3;
+    }
+
+    &__title {
+      white-space: normal;
+      overflow: visible;
+      text-overflow: unset;
+    }
+  }
+}

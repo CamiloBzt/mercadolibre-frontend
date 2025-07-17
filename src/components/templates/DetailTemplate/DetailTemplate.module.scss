@@ -1,0 +1,43 @@
+.detailtemplate {
+  min-height: 100vh;
+  background-color: $ml-background;
+  display: flex;
+  flex-direction: column;
+
+  &__container {
+    flex: 1;
+    gap: 0.625rem;
+    @include container;
+  }
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: $space-6;
+    padding-bottom: $space-2;
+    &_publication {
+      font-family: $font-family;
+      font-size: $font-sm;
+      color: $ml-black;
+      &_number {
+        font-weight: $font-semibold;
+      }
+    }
+  }
+
+  &__main {
+    padding-bottom: $space-8;
+  }
+
+  @include mobile {
+    &__top {
+      &_publication {
+        font-size: $font-xs;
+      }
+    }
+    &__main {
+      padding-bottom: $space-6;
+    }
+  }
+}
