@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import LoadingSpinner from '@/components/atoms/LoadingSpinner/LoadingSpinner';
-import { useRouter } from 'next/navigation';
-import DetailTemplate from '@/components/templates/DetailTemplate/DetailTemplate';
 import ProductDetail from '@/components/organisms/ProductDetail/ProductDetail';
-import { getProductById } from '@/lib/mockProductDetail';
 import { ProductDetailData } from '@/components/organisms/ProductDetail/ProductDetail.types';
+import ProductDetailSkeleton from '@/components/organisms/ProductDetailSkeleton/ProductDetailSkeleton';
+import DetailTemplate from '@/components/templates/DetailTemplate/DetailTemplate';
+import { getProductById } from '@/lib/mockProductDetail';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import styles from './page.module.scss';
 
 interface ItemDetailPageProps {
@@ -39,7 +39,7 @@ export default function ItemDetailPage({ params }: ItemDetailPageProps) {
       const productData = getProductById(productId);
       setProduct(productData);
       setIsLoading(false);
-    }, 500);
+    }, 1000);
   }, [productId]);
 
   const handleSearch = (query: string) => {
@@ -54,10 +54,7 @@ export default function ItemDetailPage({ params }: ItemDetailPageProps) {
   if (isLoading) {
     return (
       <DetailTemplate onSearch={handleSearch} categories={[]}>
-        <div className={styles.loading}>
-          <LoadingSpinner size="large" />
-          <p>Cargando producto...</p>
-        </div>
+        <ProductDetailSkeleton />
       </DetailTemplate>
     );
   }

@@ -1,0 +1,61 @@
+.productcardskeleton {
+  display: flex;
+  gap: $space-6;
+  padding: $space-4;
+  padding-bottom: $space-6;
+  background-color: $ml-white;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+
+  &__image {
+    flex-shrink: 0;
+    width: 259px;
+    height: 250px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: $space-8;
+  }
+
+  &__detail_section {
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+  }
+
+  &__title_section {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+  }
+
+  &__price_section {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+  }
+
+  &__shipping_section {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+  }
+
+  @include mobile {
+    flex-direction: column;
+
+    &__image {
+      width: 100%;
+      height: 200px;
+    }
+
+    &__content {
+      padding-top: 0;
+    }
+  }
+}

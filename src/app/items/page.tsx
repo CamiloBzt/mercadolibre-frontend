@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import SearchTemplate from '@/components/templates/SearchTemplate/SearchTemplate';
-import SearchResults from '@/components/organisms/SearchResults/SearchResults';
-import { searchProducts } from '@/lib/mockData';
-import { Product } from '@/components/molecules/ProductCard/ProductCard.types';
 import Pagination from '@/components/molecules/Pagination/Pagination';
+import { Product } from '@/components/molecules/ProductCard/ProductCard.types';
+import SearchResults from '@/components/organisms/SearchResults/SearchResults';
+import SearchResultsSkeleton from '@/components/organisms/SearchResultsSkeleton/SearchResultsSkeleton';
+import SearchTemplate from '@/components/templates/SearchTemplate/SearchTemplate';
+import { searchProducts } from '@/lib/mockData';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense, useEffect, useState } from 'react';
 import styles from './page.module.scss';
 
 function ItemsPageContent() {
@@ -35,7 +36,7 @@ function ItemsPageContent() {
       setCurrentPage(results.currentPage);
       setTotalPages(results.totalPages);
       setIsLoading(false);
-    }, 500);
+    }, 800);
   };
 
   // Manejar búsqueda desde el header
@@ -94,13 +95,7 @@ function ItemsPageContent() {
 
 export default function ItemsPage() {
   return (
-    <Suspense
-      fallback={
-        <div className={styles.loading}>
-          <p>Cargando...</p>
-        </div>
-      }
-    >
+    <Suspense fallback={<SearchResultsSkeleton itemCount={10} />}>
       <ItemsPageContent />
     </Suspense>
   );

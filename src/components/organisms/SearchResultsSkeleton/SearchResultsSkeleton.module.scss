@@ -1,0 +1,28 @@
+.searchresultsskeleton {
+  padding: $space-8 0;
+
+  &__container {
+    @include container;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background-color: $ml-white;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+  &__item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  @include mobile {
+    padding: $space-3 0;
+  }
+}

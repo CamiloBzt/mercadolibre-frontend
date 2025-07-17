@@ -7,7 +7,14 @@
   &__container {
     flex: 1;
     gap: 0.625rem;
-    @include container;
+    width: 100%;
+    max-width: 75rem;
+    margin: 0 auto;
+    padding: 0 $space-4;
+
+    @include tablet {
+      padding: 0 $space-6;
+    }
   }
 
   &__top {
@@ -28,6 +35,7 @@
 
   &__main {
     padding-bottom: $space-8;
+    width: 100%;
   }
 
   @include mobile {

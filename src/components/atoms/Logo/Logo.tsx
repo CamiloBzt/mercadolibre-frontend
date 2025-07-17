@@ -1,7 +1,8 @@
-import React from 'react';
 import Image from 'next/image';
-import { LogoProps } from './Logo.types';
+import Link from 'next/link';
+import React from 'react';
 import styles from './Logo.module.scss';
+import { LogoProps } from './Logo.types';
 
 const Logo: React.FC<LogoProps> = ({
   width = 134,
@@ -9,7 +10,7 @@ const Logo: React.FC<LogoProps> = ({
   className = '',
 }) => {
   return (
-    <div className={`${styles.logo} ${className}`}>
+    <Link href="/" className={`${styles.logo} ${className}`}>
       <Image
         src="/assets/logo.webp"
         alt="MercadoLibre"
@@ -18,7 +19,7 @@ const Logo: React.FC<LogoProps> = ({
         priority
         className={styles.logo__image}
       />
-    </div>
+    </Link>
   );
 };
 
