@@ -9,13 +9,23 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
   className = '',
 }) => {
   const [selectedImage, setSelectedImage] = useState(0);
+  const [imageErrors, setImageErrors] = useState<Set<number>>(new Set());
 
   if (!images || images.length === 0) {
     return null;
   }
 
+  const validImages = images.filter((_, index) => !imageErrors.has(index));
+  const displayImages = validImages.length > 0 ? validImages : [images[0]];
+
+  const adjustedSelectedImage = imageErrors.has(selectedImage)
+    ? 0
+    : Math.min(selectedImage, displayImages.length - 1);
+
   const handleThumbnailClick = (index: number) => {
-    setSelectedImage(index);
+    if (!imageErrors.has(index)) {
+      setSelectedImage(index);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
@@ -25,6 +35,22 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
     }
   };
 
+  const handleImageError = (index: number) => {
+    setImageErrors((prev) => new Set(prev).add(index));
+
+    if (index === selectedImage) {
+      const nextValidIndex = images.findIndex(
+        (_, i) => !imageErrors.has(i) && i !== index
+      );
+      if (nextValidIndex !== -1) {
+        setSelectedImage(nextValidIndex);
+      }
+    }
+  };
+
+  const placeholderImage =
+    'https://http2.mlstatic.com/D_NQ_NP_2X_899441-MLA46114829758_052021-F.webp';
+
   return (
     <div className={`${styles.imagegallery} ${className}`}>
       <div className={styles.imagegallery__thumbnails}>
@@ -32,34 +58,43 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
           <button
             key={index}
             className={`${styles.imagegallery__thumbnail} ${
-              index === selectedImage
+              index === adjustedSelectedImage && !imageErrors.has(index)
                 ? styles.imagegallery__thumbnail__active
                 : ''
-            }`}
+            } ${imageErrors.has(index) ? 'opacity-50' : ''}`}
             onClick={() => handleThumbnailClick(index)}
             onKeyDown={(e) => handleKeyDown(e, index)}
             aria-label={`Ver imagen ${index + 1} de ${title}`}
-            aria-pressed={index === selectedImage}
+            aria-pressed={
+              index === adjustedSelectedImage && !imageErrors.has(index)
+            }
+            disabled={imageErrors.has(index)}
           >
             <Image
-              src={image}
+              src={imageErrors.has(index) ? placeholderImage : image}
               alt={`${title} - Miniatura ${index + 1}`}
               width={48}
               height={48}
-              style={{ objectFit: 'cover' }}
+              style={{ objectFit: 'contain' }}
+              onError={() => handleImageError(index)}
             />
           </button>
         ))}
       </div>
       <div className={styles.imagegallery__main}>
         <Image
-          src={images[selectedImage]}
-          alt={`${title} - Imagen ${selectedImage + 1}`}
+          src={
+            imageErrors.has(adjustedSelectedImage)
+              ? placeholderImage
+              : images[adjustedSelectedImage]
+          }
+          alt={`${title} - Imagen ${adjustedSelectedImage + 1}`}
           width={428}
           height={566}
           priority
           style={{ objectFit: 'contain' }}
           className={styles.imagegallery__main_image}
+          onError={() => handleImageError(adjustedSelectedImage)}
         />
       </div>
     </div>

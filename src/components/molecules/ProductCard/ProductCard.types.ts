@@ -1,20 +1,6 @@
-export interface Product {
-  id: string;
-  title: string;
-  price: {
-    currency: string;
-    amount: number;
-    decimals: number;
-    regular_amount?: number;
-  };
-  picture: string;
-  condition: string;
-  free_shipping: boolean;
-  installments?: string;
-  seller?: string;
-}
+import { ProductItem } from '@/store/api/types/product.types';
 
 export interface ProductCardProps {
-  product: Product;
+  product: ProductItem;
   onClick?: (productId: string) => void;
 }

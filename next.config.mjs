@@ -9,20 +9,7 @@ const nextConfig = {
   },
   // Configuración de imágenes
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'http2.mlstatic.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'mla-s1-p.mlstatic.com',
-        port: '',
-        pathname: '/**',
-      },
-    ],
+    domains: ['fakestoreapi.com', 'http2.mlstatic.com'],
     formats: ['image/webp', 'image/avif'],
     minimumCacheTTL: 60,
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
@@ -93,7 +80,7 @@ const nextConfig = {
     optimizeCss: true,
     scrollRestoration: true,
     webVitalsAttribution: ['CLS', 'LCP'],
-    optimizePackageImports: ['million'],
+    optimizePackageImports: ['million', '@reduxjs/toolkit'],
   },
 
   // Configuración de webpack para optimización

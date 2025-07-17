@@ -12,7 +12,6 @@ const WelcomeMessage: React.FC = () => {
   };
 
   useEffect(() => {
-    // Verificar si es la primera visita usando sessionStorage
     try {
       const hasVisited = sessionStorage.getItem('hasVisited');
       if (!hasVisited) {
@@ -20,7 +19,6 @@ const WelcomeMessage: React.FC = () => {
         sessionStorage.setItem('hasVisited', 'true');
       }
     } catch {
-      // En caso de que sessionStorage no esté disponible, mostrar el mensaje por defecto
       setShowWelcomeMessage(true);
     }
   }, []);
