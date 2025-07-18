@@ -73,6 +73,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
               alt={`${title} - Miniatura ${index + 1}`}
               width={48}
               height={48}
+              sizes="48px"
               style={{ objectFit: 'contain' }}
               priority={index === 0}
               loading={index === 0 ? 'eager' : 'lazy'}
@@ -93,6 +94,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
           alt={`${title} - Imagen ${adjustedSelectedImage + 1}`}
           width={428}
           height={566}
+          sizes="(max-width: 640px) 90vw, 428px"
           priority
           style={{ objectFit: 'contain' }}
           className={styles.imagegallery__main_image}

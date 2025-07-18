@@ -52,6 +52,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           alt={product.title}
           width={259}
           height={250}
+          sizes="(max-width: 640px) 100vw, 259px"
           style={{ objectFit: 'contain' }}
           priority={priority}
           loading={priority ? 'eager' : 'lazy'}
