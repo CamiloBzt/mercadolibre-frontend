@@ -1,11 +1,16 @@
 import { formatPrice } from '@/utils/formatPrice';
+import { BLUR_DATA_URL, FALLBACK_IMAGE } from '@/constants/images';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import styles from './ProductCard.module.scss';
 import { ProductCardProps } from './ProductCard.types';
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
+const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  onClick,
+  priority = false,
+}) => {
   const handleClick = (e: React.MouseEvent) => {
     if (onClick) {
       e.preventDefault();
@@ -28,6 +33,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
     return null;
   };
 
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const target = e.target as HTMLImageElement;
+    target.src = FALLBACK_IMAGE;
+  };
+
   const discount = calculateDiscount();
 
   return (
@@ -43,11 +53,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
           width={259}
           height={250}
           style={{ objectFit: 'contain' }}
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.src =
-              'https://http2.mlstatic.com/D_NQ_NP_2X_899441-MLA46114829758_052021-F.webp';
-          }}
+          priority={priority}
+          loading={priority ? 'eager' : 'lazy'}
+          placeholder="blur"
+          blurDataURL={BLUR_DATA_URL}
+          onError={handleImageError}
         />
       </div>
 

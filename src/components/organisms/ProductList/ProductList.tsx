@@ -23,9 +23,13 @@ const ProductList: React.FC<ProductListProps> = ({
 
   return (
     <div className={`${styles.productlist} ${className}`}>
-      {products.map((product) => (
+      {products.map((product, index) => (
         <div key={product.id} className={styles.productlist__item}>
-          <ProductCard product={product} onClick={onProductClick} />
+          <ProductCard
+            product={product}
+            onClick={onProductClick}
+            priority={index < 3}
+          />
         </div>
       ))}
     </div>

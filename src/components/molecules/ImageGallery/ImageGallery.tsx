@@ -1,3 +1,4 @@
+import { BLUR_DATA_URL, FALLBACK_IMAGE } from '@/constants/images';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import styles from './ImageGallery.module.scss';
@@ -48,9 +49,6 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
     }
   };
 
-  const placeholderImage =
-    'https://http2.mlstatic.com/D_NQ_NP_2X_899441-MLA46114829758_052021-F.webp';
-
   return (
     <div className={`${styles.imagegallery} ${className}`}>
       <div className={styles.imagegallery__thumbnails}>
@@ -71,11 +69,15 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
             disabled={imageErrors.has(index)}
           >
             <Image
-              src={imageErrors.has(index) ? placeholderImage : image}
+              src={imageErrors.has(index) ? FALLBACK_IMAGE : image}
               alt={`${title} - Miniatura ${index + 1}`}
               width={48}
               height={48}
               style={{ objectFit: 'contain' }}
+              priority={index === 0}
+              loading={index === 0 ? 'eager' : 'lazy'}
+              placeholder="blur"
+              blurDataURL={BLUR_DATA_URL}
               onError={() => handleImageError(index)}
             />
           </button>
@@ -85,7 +87,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
         <Image
           src={
             imageErrors.has(adjustedSelectedImage)
-              ? placeholderImage
+              ? FALLBACK_IMAGE
               : images[adjustedSelectedImage]
           }
           alt={`${title} - Imagen ${adjustedSelectedImage + 1}`}
@@ -94,6 +96,8 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
           priority
           style={{ objectFit: 'contain' }}
           className={styles.imagegallery__main_image}
+          placeholder="blur"
+          blurDataURL={BLUR_DATA_URL}
           onError={() => handleImageError(adjustedSelectedImage)}
         />
       </div>
