@@ -1,5 +1,5 @@
 import { mockProducts } from '@/test/mocks/products';
-import { render, screen } from '@/test/utils/test-utils';
+import { render, screen } from '@testing-library/react';
 import ProductList from './ProductList';
 
 describe('ProductList Component', () => {

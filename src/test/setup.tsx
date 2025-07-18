@@ -33,14 +33,3 @@ vi.mock('next/navigation', () => ({
     get: vi.fn(),
   }),
 }));
-
-// Mock para sessionStorage
-Object.defineProperty(window, 'sessionStorage', {
-  value: {
-    getItem: vi.fn(),
-    setItem: vi.fn(),
-    removeItem: vi.fn(),
-    clear: vi.fn(),
-  },
-  writable: true,
-});

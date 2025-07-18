@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@/test/utils/test-utils';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
 import SearchBar from './SearchBar';
 

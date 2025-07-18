@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@/test/utils/test-utils';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
 import Pagination from './Pagination';
 
