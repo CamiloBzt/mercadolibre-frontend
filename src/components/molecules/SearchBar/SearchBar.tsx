@@ -1,6 +1,8 @@
 import Button from '@/components/atoms/Button/Button';
 import SearchIcon from '@/components/atoms/SearchIcon/SearchIcon';
-import React, { useState } from 'react';
+import { useAppSelector } from '@/hooks/redux';
+import { selectQuery } from '@/store/slices/searchSlice';
+import React, { useEffect, useState } from 'react';
 import styles from './SearchBar.module.scss';
 import { SearchBarProps } from './SearchBar.types';
 
@@ -8,7 +10,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
   placeholder = 'Buscar productos, marcas y más...',
   onSearch,
 }) => {
-  const [query, setQuery] = useState('');
+  const currentQuery = useAppSelector(selectQuery);
+
+  const [query, setQuery] = useState(currentQuery || '');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,6 +24,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
   };
+
+  useEffect(() => {
+    setQuery(currentQuery || '');
+  }, [currentQuery]);
 
   return (
     <form className={styles.searchbar} onSubmit={handleSubmit}>
